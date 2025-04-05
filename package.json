@@ -1,8 +1,17 @@
 {
-  "name": "wxt-vue-starter",
-  "description": "manifest.json description",
+  "name": "bacatari",
+  "description": "Baca berita tanpa ribet",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "bugs": {
+    "url": "https://github.com/ridzimeko/bacatari/issues"
+  },
+  "homepage": "https://github.com/ridzimeko/bacatari#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ridzimeko/bacatari.git"
+  },
+  "license": "GPL-3.0-only",
   "type": "module",
   "scripts": {
     "dev": "wxt",
