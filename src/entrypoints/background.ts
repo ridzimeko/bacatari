@@ -1,8 +1,8 @@
 import websites from "@/filters/websites";
 
 export default defineBackground(() => {
-  browser.webRequest.onBeforeRequest.addListener(
-    (details) => {
+  browser.webNavigation.onBeforeNavigate.addListener(
+    async (details) => {
       const url = new URL(details.url);
 
       for (const website of websites) {
@@ -11,13 +11,12 @@ export default defineBackground(() => {
           // add ?page=all to the matched url
           if (url.pathname.match(website.articlePath) && !url.searchParams.has('page')) {
             url.searchParams.set('page', 'all');
-            return { redirectUrl: url.toString() };
+            return browser.tabs.update(details.tabId, { url: url.toString() });
           }
 
         }
       }
     },
-    { urls: ['*://*/*'], types: ['main_frame'] },
-    ['blocking']
+    { url: [{ schemes: ['http', 'https'] }] }
   );
 })

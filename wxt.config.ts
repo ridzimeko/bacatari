@@ -8,7 +8,7 @@ export default defineConfig({
     name: 'Bacatari',
     description: 'Baca berita tanpa ribet',
     version: '1.0.0',
-    permissions: ['tabs', 'webRequest', 'webRequestBlocking', 'declarativeNetRequest', 'activeTab'],
+    permissions: ['tabs', 'webNavigation', 'webRequest', 'webRequestBlocking', 'declarativeNetRequest', 'activeTab'],
     host_permissions: ['*://*/*']
   }
 });
