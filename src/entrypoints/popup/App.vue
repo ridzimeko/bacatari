@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
   <div class="popup">
-    <div class="popup-header">
+    <header class="popup-header">
       <h1>Bacatari</h1>
       <!-- power icon button -->
       <PowerLine
@@ -31,18 +31,44 @@ onMounted(() => {
         :style="{ color: !isDisabled ? 'var(--bc-primary)' : 'var(--bc-text)' }"
         @click="toggleSiteHandler"
       />
-    </div>
+    </header>
+
+    <main>
+      <p style="text-align: center; margin-top: 1rem; font-size: larger; color: gray">
+        Opsi pengaturan saat ini masih belum tersedia, tunggu update berikutnya ;)
+      </p>
+    </main>
+
+    <footer>
+      <span>v.1.0.0</span>
+    </footer>
   </div>
 </template>
 
 <style scoped>
+.popup {
+  padding: 0 1rem 1rem;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
 .popup-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 0 1rem;
   user-select: none;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logo {
