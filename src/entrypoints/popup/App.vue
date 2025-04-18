@@ -1,12 +1,23 @@
 <script lang="ts" setup>
-import PowerLine from "@/components/icons/PowerLine.vue";
-import { useConfig } from "@/composables/useconfig";
+import PowerLine from '@/components/icons/PowerLine.vue'
 
-const isDisabled = ref(false);
+const isDisabled = ref(false)
 
-function toggleSite() {
-  // TODO: implement
+const toggleSiteHandler = async () => {
+  browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', setToggle: !isDisabled.value })
 }
+
+onMounted(() => {
+  browser.runtime.onMessage.addListener((message) => {
+    if (message.type === 'BC_TOGGLE_RESPONSE') {
+      isDisabled.value = message.isDisabled
+    } else if (message.type === 'BC_CURRENT_STATUS_RESPONSE') {
+      isDisabled.value = message.isDisabled
+    }
+  })
+
+  browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS' })
+})
 </script>
 
 <template>
@@ -16,9 +27,9 @@ function toggleSite() {
       <!-- power icon button -->
       <PowerLine
         role="button"
-        :aria-label="`Turn ${isDisabled ? 'on' : 'off'} Bacatari`"
+        :aria-label="`${isDisabled ? 'Enable' : 'Disable'} Bacatari temporary`"
         :style="{ color: !isDisabled ? 'var(--bc-primary)' : 'var(--bc-text)' }"
-        @click="toggleSite"
+        @click="toggleSiteHandler"
       />
     </div>
   </div>
