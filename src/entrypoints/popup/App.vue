@@ -9,9 +9,9 @@ const toggleSiteHandler = async () => {
 
 onMounted(() => {
   browser.runtime.onMessage.addListener((message) => {
-    if (message.type === 'BC_TOGGLE_RESPONSE') {
+    if (message.type === 'BC_TOGGLE_HANDLER') {
       isDisabled.value = message.isDisabled
-    } else if (message.type === 'BC_CURRENT_STATUS_RESPONSE') {
+    } else if (message.type === 'BC_CURRENT_STATUS') {
       isDisabled.value = message.isDisabled
     }
   })

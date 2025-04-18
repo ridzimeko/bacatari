@@ -1,49 +1,56 @@
-import websites from '@/filters/websites'
-
 export default defineBackground(() => {
-  const DISABLED_SITES: string[] = []
+  const DISABLED_SITES: Set<string> = new Set()
 
-  browser.webNavigation.onBeforeNavigate.addListener(
-    async (details) => {
-      if (details.frameId !== 0) return // only main frame
+  /**
+   * Cek apakah situs sedang dinonaktifkan
+   */
+  const isDisabledSite = (hostname: string): boolean => {
+    return Array.from(DISABLED_SITES).some((site) => hostname.includes(site))
+  }
 
-      const url = new URL(details.url)
-      const website = currentMatchWebsite(url)
-      const isCurrentlyDisabled = DISABLED_SITES.filter((site) => site.includes(url.hostname)).length > 0
+  /**
+   * Handler saat navigasi dimulai
+   */
+  const handleBeforeNavigate = async (details: Browser.webNavigation.WebNavigationParentedCallbackDetails) => {
+    if (details.frameId !== 0) return // only main frame
 
-      if (url.hostname.includes(website.domain)) {
-        if (isCurrentlyDisabled) {
-          return
-        }
+    const url = new URL(details.url)
+    const website = currentMatchWebsite(url)
 
-        // add ?page=all to the matched url
-        if (url.pathname.match(website.articlePath) && !url.searchParams.has('page')) {
-          url.searchParams.set('page', 'all')
-          return browser.tabs.update(details.tabId, { url: url.toString() })
-        }
-      }
-    },
-    { url: [{ schemes: ['http', 'https'] }] },
-  )
+    if (!url.hostname.includes(website?.domain)) return
+    if (isDisabledSite(url.hostname)) return
 
-  browser.runtime.onMessage.addListener(async (message, sender) => {
-    if (message.type === 'BC_TOGGLE_HANDLER') {
-      const hostname = await getCurrentHostname()
-
-      if (message.setToggle) {
-        DISABLED_SITES.push(hostname)
-      } else {
-        DISABLED_SITES.splice(DISABLED_SITES.indexOf(hostname), 1)
-      }
-
-      browser.runtime.sendMessage({ type: 'BC_TOGGLE_RESPONSE', isDisabled: message.setToggle })
-    } else if (message.type === 'BC_CURRENT_STATUS') {
-      const hostname = await getCurrentHostname()
-
-      browser.runtime.sendMessage({
-        type: 'BC_CURRENT_STATUS_RESPONSE',
-        isDisabled: DISABLED_SITES.includes(hostname),
-      })
+    // Tambah ?page=all jika cocok path artikel & belum ada query
+    if (url.pathname.match(website.articlePath) && !url.searchParams.has('page')) {
+      url.searchParams.set('page', 'all')
+      return browser.tabs.update(details.tabId, { url: url.toString() })
     }
+  }
+
+  /**
+   * Handler pesan dari content atau popup
+   */
+  const handleMessage = async (message: any, sender: any) => {
+    const hostname = await getCurrentHostname()
+
+    switch (message.type) {
+      case 'BC_TOGGLE_HANDLER':
+        if (message.setToggle) {
+          DISABLED_SITES.add(hostname)
+        } else {
+          DISABLED_SITES.delete(hostname)
+        }
+
+        browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', isDisabled: message.setToggle })
+
+      case 'BC_CURRENT_STATUS':
+        return browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', isDisabled: isDisabledSite(hostname) })
+    }
+  }
+
+  browser.webNavigation.onBeforeNavigate.addListener(handleBeforeNavigate, {
+    url: [{ schemes: ['http', 'https'] }],
   })
+
+  browser.runtime.onMessage.addListener(handleMessage)
 })
