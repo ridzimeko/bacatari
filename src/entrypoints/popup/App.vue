@@ -1,24 +1,11 @@
 <script lang="ts" setup>
-import PowerLine from '@/components/icons/PowerLine.vue'
+import BcSwitch from '@/components/BcSwitch.vue'
+import { useConfig } from '@/composables/useconfig'
 
-const isDisabled = ref(true)
+const { config, loadConfig, toggleFeature } = useConfig()
 
-const toggleSiteHandler = async () => {
-  await browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', setToggle: !isDisabled.value })
-}
-
-const checkStatus = async () => {
-  await browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS' })
-}
-
-onMounted(() => {
-  checkStatus()
-
-  browser.runtime.onMessage.addListener((message) => {
-    if (message.type === 'BC_CURRENT_STATUS') {
-      isDisabled.value = message.status
-    }
-  })
+onMounted(async () => {
+  await loadConfig()
 })
 </script>
 
@@ -26,23 +13,23 @@ onMounted(() => {
   <div class="popup">
     <header class="popup-header">
       <h1>Bacatari</h1>
-      <!-- power icon button -->
-      <PowerLine
-        role="button"
-        :aria-label="`${isDisabled ? 'Enable' : 'Disable'} Bacatari temporary`"
-        :style="{ color: !isDisabled ? 'var(--bc-primary)' : 'var(--bc-text)' }"
-        @click="toggleSiteHandler"
-      />
     </header>
 
     <main>
-      <p style="text-align: center; margin-top: 1rem; font-size: 1rem; color: gray">
-        Opsi pengaturan saat ini masih belum tersedia, tunggu update berikutnya ;)
-      </p>
+      <div class="option-container">
+        <div class="option-item">
+          <span>Proteksi clipboard</span>
+          <BcSwitch :model-value="config.antiClipboard" @update:modelValue="toggleFeature('antiClipboard')" />
+        </div>
+        <div class="option-item">
+          <span>Tampilkan artikel lengkap</span>
+          <BcSwitch :model-value="config.showFullArticle" @update:modelValue="toggleFeature('showFullArticle')" />
+        </div>
+      </div>
     </main>
 
     <footer>
-      <span>v.1.0.0</span>
+      <span>V{{ browser.runtime.getManifest().version }}</span>
     </footer>
   </div>
 </template>
@@ -84,12 +71,10 @@ footer {
   cursor: pointer;
 }
 
-.power-bc svg:hover {
-  color: var(--bc-accent);
-}
-
-.option-list {
-  padding: 1rem;
+.option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .option-item {
@@ -100,7 +85,8 @@ footer {
 }
 
 .option-item span {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--bc-text);
+  cursor: default;
 }
 </style>

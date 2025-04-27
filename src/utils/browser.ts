@@ -19,7 +19,7 @@ export const getCurrentHostname = async (): Promise<string> => {
   return hostname
 }
 
-export const getBcConfig = async () => {
+export const getBcConfig = async (): Promise<BcConfig> => {
   return await browser.storage.local.get('bacatariConfig').then((result) => {
     return result.bacatariConfig
   })

@@ -1,25 +1,17 @@
-// composables/useBacatariConfig.ts
 import { ref, toRaw } from 'vue'
 
-interface BacatariConfig {
-  disabledSites: string[]
-  antiClipboard: boolean
-}
-
-const defaultConfig: BacatariConfig = {
-  disabledSites: [],
+const defaultConfig: BcConfig = {
   antiClipboard: true,
+  showFullArticle: true,
 }
 
-const config = ref<BacatariConfig>({ ...defaultConfig })
+const config = ref<BcConfig>({ ...defaultConfig })
 
-export function useConfig(currentHostname: string) {
-  const isDisabled = ref(false)
-
+export function useConfig() {
   const loadConfig = async () => {
-    const result = await browser.storage.local.get('bacatariConfig')
-    config.value = result.bacatariConfig || { ...defaultConfig }
-    isDisabled.value = config.value.disabledSites.includes(currentHostname)
+    const result = await getBcConfig()
+
+    config.value = result || { ...defaultConfig }
   }
 
   const saveConfig = () => {
@@ -28,28 +20,14 @@ export function useConfig(currentHostname: string) {
     })
   }
 
-  const toggleSite = () => {
-    const idx = config.value.disabledSites.indexOf(currentHostname)
-    if (idx >= 0) {
-      config.value.disabledSites.splice(idx, 1)
-      isDisabled.value = false
-    } else {
-      config.value.disabledSites.push(currentHostname)
-      isDisabled.value = true
-    }
-    saveConfig()
-  }
-
-  const toggleClipboard = () => {
-    config.value.antiClipboard = !config.value.antiClipboard
+  const toggleFeature = (feature: keyof BcConfig) => {
+    config.value[feature] = !config.value[feature]
     saveConfig()
   }
 
   return {
     config,
-    isDisabled,
     loadConfig,
-    toggleSite,
-    toggleClipboard,
+    toggleFeature,
   }
 }

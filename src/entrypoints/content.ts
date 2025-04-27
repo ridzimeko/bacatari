@@ -4,7 +4,10 @@ import applyAntiClipboard from '@/utils/antiClipboard'
 export default defineContentScript({
   matches: ['<all_urls>'],
   runAt: 'document_start',
-  main() {
+  async main() {
+    const config = await getBcConfig()
+    if (!config.antiClipboard) return
+
     for (const website of websites) {
       if (location.hostname.includes(website.domain)) {
         // protect clipboard
