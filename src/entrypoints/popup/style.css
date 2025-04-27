@@ -34,7 +34,7 @@ html {
 }
 
 body {
-  min-width: 320px;
+  width: 340px;
   max-height: 700px;
   overflow: hidden;
   margin: 0;

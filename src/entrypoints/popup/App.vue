@@ -34,7 +34,7 @@ onMounted(() => {
     </header>
 
     <main>
-      <p style="text-align: center; margin-top: 1rem; font-size: larger; color: gray">
+      <p style="text-align: center; margin-top: 1rem; font-size: 1rem; color: gray">
         Opsi pengaturan saat ini masih belum tersedia, tunggu update berikutnya ;)
       </p>
     </main>
