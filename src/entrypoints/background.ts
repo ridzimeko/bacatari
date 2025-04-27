@@ -5,7 +5,16 @@ export default defineBackground(() => {
    * Cek apakah situs sedang dinonaktifkan
    */
   const isDisabledSite = (hostname: string): boolean => {
-    return Array.from(DISABLED_SITES).some((site) => hostname.includes(site))
+    const rootDomain = getRootDomain(hostname)
+    return Array.from(DISABLED_SITES).some((site) => site.includes(rootDomain))
+  }
+
+  function getRootDomain(hostname: string): string {
+    const parts = hostname.split('.')
+    if (parts.length <= 2) {
+      return hostname
+    }
+    return parts.slice(-2).join('.') // ambil dua bagian terakhir
   }
 
   /**
@@ -30,22 +39,31 @@ export default defineBackground(() => {
   /**
    * Handler pesan dari content atau popup
    */
-  const handleMessage = async (message: any, sender: any) => {
+  const handleMessage = async (message: any, sender: any, sendResponse: any) => {
     const hostname = await getCurrentHostname()
+
+    if (hostname === 'localhost') {
+      // TODO: send tooltip error
+      return
+    }
+
+    const rootDomain = getRootDomain(hostname)
 
     switch (message.type) {
       case 'BC_TOGGLE_HANDLER':
         if (message.setToggle) {
-          DISABLED_SITES.add(hostname)
+          DISABLED_SITES.add(rootDomain)
         } else {
-          DISABLED_SITES.delete(hostname)
+          DISABLED_SITES.delete(rootDomain)
         }
 
-        browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', isDisabled: message.setToggle })
+        browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', status: message.setToggle })
 
-      // TODO: fix bacatari disabled site status
-      // case 'BC_CURRENT_STATUS':
-      // return browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', isDisabled: isDisabledSite(hostname) })
+      case 'BC_CURRENT_STATUS':
+        return browser.runtime.sendMessage({
+          type: 'BC_CURRENT_STATUS',
+          status: isDisabledSite(rootDomain),
+        })
     }
   }
 

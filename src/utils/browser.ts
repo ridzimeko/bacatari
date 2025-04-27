@@ -13,7 +13,7 @@ export const getCurrentHostname = async (): Promise<string> => {
       console.error('Gagal parse URL tab:', e)
     }
   } else {
-    console.warn('Tab aktif tidak memiliki URL yang valid.')
+    hostname = 'localhost'
   }
 
   return hostname

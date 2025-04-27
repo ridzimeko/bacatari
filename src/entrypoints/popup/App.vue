@@ -1,22 +1,24 @@
 <script lang="ts" setup>
 import PowerLine from '@/components/icons/PowerLine.vue'
 
-const isDisabled = ref(false)
+const isDisabled = ref(true)
 
 const toggleSiteHandler = async () => {
-  browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', setToggle: !isDisabled.value })
+  await browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', setToggle: !isDisabled.value })
+}
+
+const checkStatus = async () => {
+  await browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS' })
 }
 
 onMounted(() => {
+  checkStatus()
+
   browser.runtime.onMessage.addListener((message) => {
-    if (message.type === 'BC_TOGGLE_HANDLER') {
-      isDisabled.value = message.isDisabled
-    } else if (message.type === 'BC_CURRENT_STATUS') {
-      isDisabled.value = message.isDisabled
+    if (message.type === 'BC_CURRENT_STATUS') {
+      isDisabled.value = message.status
     }
   })
-
-  browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS' })
 })
 </script>
 
