@@ -1,8 +1,22 @@
 import websites from '@/filters/websites'
 
-export const getCurrentHostname = async () => {
+export const getCurrentHostname = async (): Promise<string> => {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-  return new URL(tabs[0].url || '').hostname
+  const tabUrl = tabs[0]?.url
+
+  let hostname = ''
+
+  if (tabUrl && tabUrl.startsWith('http')) {
+    try {
+      hostname = new URL(tabUrl).hostname
+    } catch (e) {
+      console.error('Gagal parse URL tab:', e)
+    }
+  } else {
+    console.warn('Tab aktif tidak memiliki URL yang valid.')
+  }
+
+  return hostname
 }
 
 export const getBcConfig = async () => {

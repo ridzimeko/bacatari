@@ -1,5 +1,7 @@
 import { waitForElement } from '@/utils/dom'
 
+const BC_ELEMENT_CLASS = '.speechify-ignore.bh.l'
+
 export default defineContentScript({
   matches: ['*://*/*'],
   runAt: 'document_idle',
@@ -37,28 +39,25 @@ export default defineContentScript({
         freeMedium(url)
       })
 
-      const element = document.querySelector('.speechify-ignore.bh.l')
+      const element = document.querySelector(BC_ELEMENT_CLASS)
       if (element) {
         element.appendChild(icon)
       }
     }
 
     const isMedium =
-      !!document.querySelector('meta[content="Medium"]') &&
-      !!document.querySelector('meta[property="article:published_time"]') &&
-      !!document.querySelector('link[rel="author"][data-rh="true"]')
+      !!document.querySelector('meta[property="og:site_name"][content="Medium"]') &&
+      !!document.querySelector('link[rel="search"][title="Medium"]')
 
-    browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', isDisabled: isMedium }, (response) => {
-      if (isMedium && !response.isDisabled) {
-        injectButton()
+    if (isMedium) {
+      injectButton()
 
-        onUrlChange(() => {
-          console.log('Bacatari_medium - URL changed')
-          waitForElement('.speechify-ignore.bh.l', injectButton)
-        })
+      onUrlChange(() => {
+        console.log('Bacatari_medium - URL changed')
+        waitForElement(BC_ELEMENT_CLASS, injectButton)
+      })
 
-        return
-      }
-    })
+      return
+    }
   },
 })

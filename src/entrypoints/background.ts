@@ -43,8 +43,9 @@ export default defineBackground(() => {
 
         browser.runtime.sendMessage({ type: 'BC_TOGGLE_HANDLER', isDisabled: message.setToggle })
 
-      case 'BC_CURRENT_STATUS':
-        return browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', isDisabled: isDisabledSite(hostname) })
+      // TODO: fix bacatari disabled site status
+      // case 'BC_CURRENT_STATUS':
+      // return browser.runtime.sendMessage({ type: 'BC_CURRENT_STATUS', isDisabled: isDisabledSite(hostname) })
     }
   }
 
