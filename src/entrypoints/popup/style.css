@@ -1,11 +1,11 @@
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   --bc-text: #0f0618;
   --bc-background: #edecee;
   --bc-primary: #ae2d09;
   --bc-secondary: #e08f9e;
   --bc-accent: #ed925a;
 }
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   --bc-text: #f0e7f9;
   --bc-background: #121113;
   --bc-primary: #f67451;
@@ -45,7 +45,7 @@ body {
   height: 1.8rem;
 }
 
-[role="button"] {
+[role='button'] {
   cursor: pointer;
 }
 
