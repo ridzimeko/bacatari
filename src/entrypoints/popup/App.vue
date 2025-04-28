@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import BcSwitch from '@/components/BcSwitch.vue'
+import ClipboardIcon from '@/components/icons/Clipboard.vue'
+import NewsPaperCheck from '@/components/icons/NewsPaperCheck.vue'
 import { useConfig } from '@/composables/useconfig'
 
 const { config, loadConfig, toggleFeature } = useConfig()
@@ -12,17 +14,24 @@ onMounted(async () => {
 <template>
   <div class="popup">
     <header class="popup-header">
+      <img src="/public/bacatari.svg" alt="Bacatari" class="logo" />
       <h1>Bacatari</h1>
     </header>
 
     <main>
       <div class="option-container">
         <div class="option-item">
-          <span>Proteksi clipboard</span>
+          <div class="option-item-icon">
+            <ClipboardIcon />
+            <span>Proteksi clipboard</span>
+          </div>
           <BcSwitch :model-value="config.antiClipboard" @update:modelValue="toggleFeature('antiClipboard')" />
         </div>
         <div class="option-item">
-          <span>Tampilkan artikel lengkap</span>
+          <div class="option-item-icon">
+            <NewsPaperCheck />
+            <span>Tampilkan artikel lengkap</span>
+          </div>
           <BcSwitch :model-value="config.showFullArticle" @update:modelValue="toggleFeature('showFullArticle')" />
         </div>
       </div>
@@ -44,9 +53,8 @@ onMounted(async () => {
 
 .popup-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.6rem;
   user-select: none;
 }
 
@@ -82,6 +90,12 @@ footer {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.option-item-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .option-item span {

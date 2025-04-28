@@ -1,22 +1,15 @@
-:root[data-theme='light'] {
-  --bc-text: #0f0618;
-  --bc-background: #edecee;
-  --bc-primary: #ae2d09;
-  --bc-secondary: #e08f9e;
-  --bc-accent: #ed925a;
-}
-:root[data-theme='dark'] {
-  --bc-text: #f0e7f9;
-  --bc-background: #121113;
+:root {
+  --bc-text: #18181b;
+  --bc-background: #f8f8f8;
   --bc-primary: #f67451;
-  --bc-secondary: #701f2e;
-  --bc-accent: #a54b12;
+  --bc-secondary: #9f2d00;
+  --bc-accent: #963b00;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --bc-text: #f0e7f9;
-    --bc-background: #121113;
+    --bc-background: #1c1a1a;
     --bc-primary: #f67451;
     --bc-secondary: #701f2e;
     --bc-accent: #a54b12;
@@ -34,15 +27,15 @@ html {
 }
 
 body {
-  width: 340px;
+  width: 360px;
   max-height: 700px;
   overflow: hidden;
   margin: 0;
 }
 
-.bc-icon-power {
-  width: 1.8rem;
-  height: 1.8rem;
+.bc-icon {
+  width: 1.3rem;
+  height: auto;
 }
 
 [role='button'] {
