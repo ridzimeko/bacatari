@@ -1,4 +1,3 @@
-import websites from '@/filters/websites'
 import applyAntiClipboard from '@/utils/antiClipboard'
 
 export default defineContentScript({
@@ -6,17 +5,18 @@ export default defineContentScript({
   runAt: 'document_start',
   async main() {
     const config = await getBcConfig()
+    const url = new URL(window.location.href)
+    const website = currentMatchWebsite(url)
+
+    if (!url.hostname.includes(website.domain)) return
+    if (!url.pathname.match(website.articlePath)) return
     if (!config.antiClipboard) return
 
-    for (const website of websites) {
-      if (location.hostname.includes(website.domain)) {
-        // protect clipboard
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', applyAntiClipboard)
-        } else {
-          applyAntiClipboard()
-        }
-      }
+    // protect clipboard
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyAntiClipboard)
+    } else {
+      applyAntiClipboard()
     }
   },
 })

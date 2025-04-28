@@ -5,7 +5,7 @@ import NewsPaperCheck from '@/components/icons/NewsPaperCheck.vue'
 import { useConfig } from '@/composables/useconfig'
 
 const { config, loadConfig, toggleFeature } = useConfig()
-const version_name = browser.runtime.getManifest().version_name
+const manifest = browser.runtime.getManifest()
 
 onMounted(async () => {
   await loadConfig()
@@ -39,7 +39,11 @@ onMounted(async () => {
     </main>
 
     <footer>
-      <span>v{{ version_name }}</span>
+      <!-- 
+        fallback to version cause firefox doesn't support it 
+        https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/version_name 
+      -->
+      <span>v{{ manifest.version_name ?? manifest.version }}</span>
     </footer>
   </div>
 </template>
