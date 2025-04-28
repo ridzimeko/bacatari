@@ -18,13 +18,31 @@ export default defineBackground(() => {
 
     switch (config.showFullArticle) {
       case true:
-        if (!updatedUrl.searchParams.has('page')) {
-          updatedUrl.searchParams.set('page', 'all')
+        if (website?.fullArticle?.type === 'query') {
+          if (!updatedUrl.searchParams.has(website?.fullArticle?.key ?? '')) {
+            updatedUrl.searchParams.set(website?.fullArticle?.key ?? '', website?.fullArticle?.value ?? '')
+          }
+        } else if (website?.fullArticle?.type === 'path') {
+          const suffix = website?.fullArticle?.suffix ?? ''
+          if (!updatedUrl.pathname.includes(suffix)) {
+            updatedUrl.pathname += suffix
+          }
+        } else {
+          // fallback to ?page=all
+          if (!updatedUrl.searchParams.has('page')) {
+            updatedUrl.searchParams.set('page', 'all')
+          }
         }
         break
       default:
-        if (updatedUrl.searchParams.has('page')) {
-          updatedUrl.searchParams.delete('page')
+        if (website?.fullArticle?.type === 'query') {
+          if (updatedUrl.searchParams.has(website?.fullArticle?.key ?? '')) {
+            updatedUrl.searchParams.delete(website?.fullArticle?.key ?? '')
+          }
+        } else {
+          if (updatedUrl.searchParams.has('page')) {
+            updatedUrl.searchParams.delete('page')
+          }
         }
         break
     }
