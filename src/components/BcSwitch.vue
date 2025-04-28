@@ -24,8 +24,8 @@ const isChecked = computed({
   font-size: 17px;
   position: relative;
   display: inline-block;
-  width: 3.7em;
-  height: 1.8em;
+  width: 3.5em;
+  height: 1.6em;
   flex-shrink: 0;
 }
 
@@ -51,8 +51,8 @@ const isChecked = computed({
 .slider:before {
   position: absolute;
   content: '';
-  height: 1.4em;
-  width: 1.4em;
+  height: 1.2em;
+  width: 1.2em;
   border-radius: 20px;
   left: 0.2em;
   bottom: 0.2em;

@@ -1,5 +1,10 @@
 import websites from '@/filters/websites'
 
+export const DEFAULT_CONFIG: BcConfig = {
+  antiClipboard: true,
+  showFullArticle: true,
+}
+
 export const getCurrentHostname = async (): Promise<string> => {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true })
   const tabUrl = tabs[0]?.url
@@ -20,9 +25,14 @@ export const getCurrentHostname = async (): Promise<string> => {
 }
 
 export const getBcConfig = async (): Promise<BcConfig> => {
-  return await browser.storage.local.get('bacatariConfig').then((result) => {
-    return result.bacatariConfig
-  })
+  let config = await browser.storage.local.get('bacatariConfig')
+  if (!config.bacatariConfig) {
+    await browser.storage.local.set({
+      bacatariConfig: DEFAULT_CONFIG,
+    })
+    return DEFAULT_CONFIG
+  }
+  return config.bacatariConfig
 }
 
 export const currentMatchWebsite = (url: URL) => {

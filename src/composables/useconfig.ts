@@ -1,17 +1,13 @@
 import { ref, toRaw } from 'vue'
+import { DEFAULT_CONFIG } from '../utils/browser'
 
-const defaultConfig: BcConfig = {
-  antiClipboard: true,
-  showFullArticle: true,
-}
-
-const config = ref<BcConfig>({ ...defaultConfig })
+const config = ref<BcConfig>({ ...DEFAULT_CONFIG })
 
 export function useConfig() {
   const loadConfig = async () => {
     const result = await getBcConfig()
 
-    config.value = result || { ...defaultConfig }
+    config.value = result || { ...DEFAULT_CONFIG }
   }
 
   const saveConfig = () => {

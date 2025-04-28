@@ -17,7 +17,7 @@ const applyAntiClipboard = () => {
     true,
   )
 
-  console.log('anti clipboard applied')
+  // console.log('anti clipboard applied')
 }
 
 export default applyAntiClipboard
