@@ -30,7 +30,7 @@ Bacatari menyesuaikan tampilan berdasarkan preferensi tema browsermu.
 
 ### Ringan dan Cepat
 
-Dibangun dengan fokus kecepatan, kompatibilitas, dan minimalisme. Ukuran extension-nya juga kurang dari 50kb.
+Dibangun dengan fokus kecepatan, kompatibilitas, dan minimalisme.
 
 ## 🔥 Situs yang Didukung
 
