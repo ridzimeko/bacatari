@@ -6,14 +6,16 @@ export default defineConfig({
   modules: ['@wxt-dev/module-vue'],
   manifest: {
     name: 'Bacatari',
-    description: 'Baca berita tanpa ribet',
-    version: '1.0.0',
+    description: 'Baca berita tanpa ribet. Membantu pengalaman baca kamu jadi lebih simpel, dan nyaman.',
+    version: '0.9.0',
+    version_name: '0.9.0-bacatari-beta',
     permissions: [
       'tabs',
       'webNavigation',
-      'webRequest',
-      'webRequestBlocking',
-      'declarativeNetRequest',
+      //  -- maybe will be implemented later --
+      // 'webRequest',
+      // 'webRequestBlocking',
+      // 'declarativeNetRequest',
       'activeTab',
       'storage',
     ],

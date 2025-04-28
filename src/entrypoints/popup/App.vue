@@ -5,6 +5,7 @@ import NewsPaperCheck from '@/components/icons/NewsPaperCheck.vue'
 import { useConfig } from '@/composables/useconfig'
 
 const { config, loadConfig, toggleFeature } = useConfig()
+const version_name = browser.runtime.getManifest().version_name
 
 onMounted(async () => {
   await loadConfig()
@@ -14,7 +15,7 @@ onMounted(async () => {
 <template>
   <div class="popup">
     <header class="popup-header">
-      <img src="/public/bacatari.svg" alt="Bacatari" class="logo" />
+      <img src="/bacatari.svg" alt="Bacatari" class="logo" />
       <h1>Bacatari</h1>
     </header>
 
@@ -38,7 +39,7 @@ onMounted(async () => {
     </main>
 
     <footer>
-      <span>V{{ browser.runtime.getManifest().version }}</span>
+      <span>v{{ version_name }}</span>
     </footer>
   </div>
 </template>
