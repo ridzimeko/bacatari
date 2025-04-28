@@ -5,17 +5,34 @@ export default defineBackground(() => {
   const handleBeforeNavigate = async (details: Browser.webNavigation.WebNavigationParentedCallbackDetails) => {
     if (details.frameId !== 0) return // only main frame
 
-    const url = new URL(details.url)
+    const originalUrl = details.url
+    const url = new URL(originalUrl)
     const website = currentMatchWebsite(url)
     const config = await getBcConfig()
 
-    if (!config.showFullArticle) return
-    if (!url.hostname.includes(website?.domain)) return
+    if (!website || (!url.hostname.includes(website.domain) && !url.pathname.match(website.articlePath))) {
+      return
+    }
 
-    // Tambah ?page=all jika cocok path artikel & belum ada query
-    if (url.pathname.match(website.articlePath) && !url.searchParams.has('page')) {
-      url.searchParams.set('page', 'all')
-      return browser.tabs.update(details.tabId, { url: url.toString() })
+    // Copy URL sebelum diubah
+    const updatedUrl = new URL(url.toString())
+
+    switch (config.showFullArticle) {
+      case true:
+        if (!updatedUrl.searchParams.has('page')) {
+          updatedUrl.searchParams.set('page', 'all')
+        }
+        break
+      default:
+        if (updatedUrl.searchParams.has('page')) {
+          updatedUrl.searchParams.delete('page')
+        }
+        break
+    }
+
+    // Hanya update tab kalau URL berubah
+    if (updatedUrl.toString() !== originalUrl) {
+      return browser.tabs.update(details.tabId, { url: updatedUrl.toString() })
     }
   }
 

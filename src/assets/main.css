@@ -1,0 +1,14 @@
+html[data-theme='dark'] {
+  --bc-text: #dfdff1;
+  --bc-background: #050506;
+  --bc-primary: #9898e7;
+  --bc-secondary: #161688;
+  --bc-accent: #3232ec;
+
+  /* dark theme */
+  --bc-text: #f0f2f4;
+  --bc-background: #020303;
+  --bc-primary: #217be8;
+  --bc-secondary: #1c416d;
+  --bc-accent: #18539a;
+}

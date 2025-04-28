@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <bx:export>
+      <bx:file format="png"/>
+    </bx:export>
+  </defs>
+  <rect x="7.829" y="3.479" width="484.341" height="484.341" style="fill: rgb(246, 116, 81);" rx="32.359" ry="32.359"/>
+  <g transform="matrix(1, 0, 0, 1, -0.000008, 0)">
+    <rect x="89.249" y="99.397" width="321.502" height="72.024" style="fill: rgb(255, 255, 255);" rx="36.012" ry="36.012"/>
+    <rect x="89.249" y="202.215" width="321.502" height="72.024" style="fill: rgb(255, 255, 255);" rx="36.012" ry="36.012"/>
+    <rect x="89.249" y="305.033" width="193.11" height="72.024" style="fill: rgb(255, 255, 255);" rx="36.012" ry="36.012"/>
+  </g>
+</svg>
