@@ -27,6 +27,7 @@ const isChecked = computed({
   width: 3.5em;
   height: 1.6em;
   flex-shrink: 0;
+  user-select: none;
 }
 
 .switch input {
