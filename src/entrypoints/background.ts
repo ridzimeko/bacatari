@@ -10,8 +10,8 @@ export default defineBackground(() => {
     const website = currentMatchWebsite(url)
     const config = await getBcConfig()
 
-    if (!url.hostname.includes(website.domain)) return
-    if (!url.pathname.match(website.articlePath)) return
+    if (!url.hostname.includes(website?.domain ?? '')) return
+    if (!url.pathname.match(website?.articlePath ?? '')) return
 
     // Copy URL sebelum diubah
     const updatedUrl = new URL(url.toString())
