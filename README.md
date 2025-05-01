@@ -74,7 +74,7 @@ pnpm build:firefox   # untuk firefox
 ### untuk melakukan zip extension gunakan perintah berikut
 
 ```bash
-pnpm zip             # untuk chrome
+pnpm zip:chrome      # untuk chrome
 pnpm zip:firefox     # untuk firefox
 ```
 
