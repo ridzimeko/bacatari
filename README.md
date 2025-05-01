@@ -55,27 +55,27 @@ Bacatari dikembangkan menggunakan framework [wxt](https://wxt.dev/) yang dibangu
 ### install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### jalankan development
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### build untuk production
 
 ```bash
-npm run build:chrome    # untuk chrome
-npm run build:firefox   # untuk firefox
+pnpm build:chrome    # untuk chrome
+pnpm build:firefox   # untuk firefox
 ```
 
 ### untuk melakukan zip extension gunakan perintah berikut
 
 ```bash
-npm run zip             # untuk chrome
-npm run zip:firefox     # untuk firefox
+pnpm zip             # untuk chrome
+pnpm zip:firefox     # untuk firefox
 ```
 
 ## 📜 Lisensi

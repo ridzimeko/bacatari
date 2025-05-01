@@ -55,27 +55,27 @@ Bacatari is developed using the [wxt](https://wxt.dev/) framework, built on top 
 ### Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Run development
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### Build for production
 
 ```bash
-npm run build:chrome    # for Chrome
-npm run build:firefox   # for Firefox
+pnpm build:chrome    # for Chrome
+pnpm build:firefox   # for Firefox
 ```
 
 ### To zip the extension use the following command
 
 ```bash
-npm run zip:chrome      # for Chrome
-npm run zip:firefox     # for Firefox
+pnpm zip:chrome      # for Chrome
+pnpm zip:firefox     # for Firefox
 ```
 
 ## 📜 License
