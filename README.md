@@ -6,6 +6,8 @@
 
 Membantu pengalaman baca kamu jadi lebih simpel, dan nyaman di berbagai situs berita favoritmu!
 
+### [For English version please click here](./README_EN.md)
+
 ## 📥 Download Bacatari
 
 (Segera hadir!)
@@ -18,11 +20,11 @@ Bacatari otomatis membuka semua halaman artikel dalam satu tampilan penuh, tanpa
 
 ### Baca Artikel Medium Gratis
 
-Baca artikel Medium gratis tanpa login menggunakan platform [Freedium](https://freedium.cfd/).
+Baca artikel Medium gratis tanpa login menggunakan platform <a href="https://freedium.cfd/" target="_blank">Freedium</a>.
 
 ### Anti-Sabotase Clipboard
 
-Blokir script nakal yang menyisipkan teks ke clipboard, biasanya berisi iklan atau konten yang tidak berguna.
+Blokir script nakal yang menyisipkan teks ke clipboard saat menyalin konten dari website, biasanya berisi iklan atau konten yang tidak berguna.
 
 ### Tema Gelap dan Terang
 
@@ -38,7 +40,7 @@ Saat ini Bacatari fokus untuk situs-situs berita populer seperti:
 
 - Detik
 - Kompas
-- tribunnews
+- Tribunnews
 - Liputan6
 - Suara
 - Antaranews
@@ -46,6 +48,36 @@ Saat ini Bacatari fokus untuk situs-situs berita populer seperti:
 
 ...dan akan terus bertambah!
 
+## ⚙️ Development
+
+Bacatari dikembangkan menggunakan framework [wxt](https://wxt.dev/) yang dibangun diatas [Vite](https://vitejs.dev/).
+
+### install dependencies
+
+```bash
+npm install
+```
+
+### jalankan development
+
+```bash
+npm run dev
+```
+
+### build untuk production
+
+```bash
+npm run build:chrome    # untuk chrome
+npm run build:firefox   # untuk firefox
+```
+
+### untuk melakukan zip extension gunakan perintah berikut
+
+```bash
+npm run zip             # untuk chrome
+npm run zip:firefox     # untuk firefox
+```
+
 ## 📜 Lisensi
 
-GPL-3.0-only. Bacatari bebas digunakan dan dikembangkan!
+GPL-3.0-only. Bacatari bebas digunakan dan bisa berkontribusi!
