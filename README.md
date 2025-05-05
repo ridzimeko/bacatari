@@ -8,9 +8,11 @@ Membantu pengalaman baca kamu jadi lebih simpel, dan nyaman di berbagai situs be
 
 ### [For English version please click here](./README_EN.md)
 
-## 📥 Download Bacatari
+## 📥 Install Bacatari
 
-(Segera hadir!)
+<a href="https://addons.mozilla.org/en-US/firefox/addon/bacatari/"><img src="https://user-images.githubusercontent.com/585534/107280546-7b9b2a00-6a26-11eb-8f9f-f95932f4bfec.png" alt="Get Bacatari for Firefox"></a>
+
+> Untuk browser berbasis Chromium saat ini masih belum tersedia di Chrome Web Store, tapi kamu bisa menginstalnya secara manual di [Releases](https://github.com/ridzimeko/bacatari-extension/releases).
 
 ## ✨ Fitur Utama
 

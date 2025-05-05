@@ -8,9 +8,11 @@ Helping your reading experience become simpler, and more convenient on your favo
 
 ### [For Indonesian version please click here](./README.md)
 
-## 📥 Download Bacatari
+## 📥 Install Bacatari
 
-(Coming soon!)
+<a href="https://addons.mozilla.org/en-US/firefox/addon/bacatari/"><img src="https://user-images.githubusercontent.com/585534/107280546-7b9b2a00-6a26-11eb-8f9f-f95932f4bfec.png" alt="Get Bacatari for Firefox"></a>
+
+> For Chromium-based browsers, it's not available on Chrome Web Store yet, but you can install it manually from [Releases](https://github.com/ridzimeko/bacatari-extension/releases).
 
 ## ✨ Key Features
 
